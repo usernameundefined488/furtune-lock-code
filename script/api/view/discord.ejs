@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= guild&&guild.name?guild.name:"© Fortune API" %></title>
+    <link rel="icon"
+        href="<%= guild&&guild.icon?guild.icon:"https://cdn.discordapp.com/avatars/618441438564188196/4e747cb7ec60914d2af34216b7736a36.png" %>" />
+    <link rel="stylesheet" href="/assets/css/minefunny.min.css">
+    <% if(guild){ %>
+    <meta content="เข้าเซิร์ฟเวอร์ <%= guild.name%>!" property="og:title">
+    <meta content="จำนวนผู้ใช้ทั้งหมด <%=guild.userCount%>
+© Fortune API" property="og:description">
+    <meta content='<%= guild.icon+"?size=512" %>' property='og:image'>
+    <meta name="theme-color" content="<%= themecolor?themecolor:"#ffa5a5"%>">
+    <% }else{ %>
+    <meta content="ไม่พบลิ้งคำเชิญนี้" property="og:title">
+    <meta content="© Fortune API" property="og:description">
+    <meta content='https://cdn.discordapp.com/avatars/618441438564188196/4e747cb7ec60914d2af34216b7736a36.png?size=512'
+        property='og:image'>
+    <meta name="theme-color" content="#ffa5a5">
+    <% } %>
+    <style>
+        :root {
+            --theme: <%=themecolor?themecolor:"#e95ce2"%>;
+            --bgurl: url("<%= bgurl?bgurl:"/assets/img/desk.44fb5847.webp" %>");
+        }
+    </style>
+</head>
+
+<body class="<%= locals.user?"logged-in":"" %>">
+    <div class="container">
+        <div class="body">
+            <div class="info">
+
+                <div class="advertisement">
+                    <img src="<%= guild&&guild.icon?guild.icon+"?size=512":"https://cdn.discordapp.com/avatars/618441438564188196/4e747cb7ec60914d2af34216b7736a36.png?size=512" %>"
+                        alt="advertisement">
+                </div>
+                <div style="text-align: center;"><i class="fas fa-circle" style="color: greenyellow;"></i>
+                    <%= guild&&guild.name?" "+guild.name:"ไม่พบเซิฟเวอร์" %><br>
+                    ผู้ใช้ทั้งหมด: <%=guild?guild.userCount:"0"%></div>
+
+            </div>
+
+            <div class="footer">
+                <form action="<%= blacklist?"#":`/check?redirect=/joindiscord/${code}`%>" method="post" id="join-form">
+                    <% if(blacklist){%>
+
+                    <button class="blacklist"><%= blacklist %></button>
+                    <%}else{%>
+                    <button class="invite g-recaptcha" data-sitekey="6Lftr7kZAAAAAPYcIEgFzaKt9-dfS9sGTvw9GcQT"
+                        data-callback='onSubmitrecaptcha' data-action='submit'>Join Server</button>
+
+                    <%}%>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <% if(!blacklist){%>
+    <script src="/assets/js/jquery.slim.min.js"></script>
+    <script src="/assets/js/joininvite.min.js"></script>
+    <%}%>
+    </body>
+
+</html>
